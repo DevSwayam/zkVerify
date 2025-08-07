@@ -1,0 +1,9 @@
+{
+  "chain_845320009": {
+    "safeImplementation": "0xb56ea8db3418a63326b69ef042c30cdeaa4df136",
+    "proxyFactory": "0x4af271648a3aabff5e7a0d9e411108131a3ca76b"
+  },
+  "timestamp": "2025-08-07T10:32:42.765Z",
+  "chainId": 845320009,
+  "deployer": "0xAF9fC206261DF20a7f2Be9B379B101FAFd983117"
+}

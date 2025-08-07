@@ -1,0 +1,51 @@
+{
+  "name": "typescript-viem-express-supabase",
+  "version": "1.0.0",
+  "description": "TypeScript server with Express, Viem, and Supabase integration",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "viem",
+    "supabase",
+    "ethereum",
+    "web3"
+  ],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.3",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.0.10",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@fluidkey/stealth-account-kit": "^1.1.0",
+    "@safe-global/protocol-kit": "^6.0.5",
+    "@safe-global/safe-contracts": "1.4.1-2",
+    "@safe-global/safe-core-sdk-types": "^5.1.0",
+    "@safe-global/types-kit": "^3.0.0",
+    "@supabase/supabase-js": "^2.50.3",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "ethereum-cryptography": "^3.2.0",
+    "ethers": "^6.15.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "viem": "^2.31.7"
+  }
+}

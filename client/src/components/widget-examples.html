@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoName Payment Widget - Integration Examples</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .example-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .demo-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border: 2px dashed #2775ca;
+        }
+
+        h1,
+        h2 {
+            color: #2775ca;
+        }
+
+        .warning {
+            background: #fff5b7;
+            border-left: 4px solid #d69e2e;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success {
+            background: #f0fff4;
+            border-left: 4px solid #26a54b;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🚀 NoName Payment Widget - Merchant Integration Guide</h1>
+
+    <div class="success">
+        <strong>✅ Ready to use!</strong> This widget integrates with your NoName Stealth Address API to accept crypto
+        payments on any website.
+    </div>
+
+    <!-- Example 1: Basic Integration -->
+    <div class="example-section">
+        <h2>📱 Example 1: Basic Integration (Auto-Initialize)</h2>
+        <p>The simplest way to add crypto payments to your website. Just add a div with data attributes and include the
+            script.</p>
+
+        <div class="code-block">
+            &lt;!-- Step 1: Add this div where you want the payment widget to appear --&gt;
+            &lt;div id="payment-widget-1"
+            data-noname-payment
+            data-merchant="mystore"
+            data-amount="99.99"
+            data-product="Premium Course"
+            data-description="Access to all premium content"&gt;&lt;/div&gt;
+
+            &lt;!-- Step 2: Include the widget script --&gt;
+            &lt;script src="https://your-domain.com/merchant-widget.js"&gt;&lt;/script&gt;
+        </div>
+
+        <div class="demo-container">
+            <p><strong>🎯 Live Demo:</strong> This is how it will look on your website:</p>
+            <div id="payment-widget-1" data-noname-payment data-merchant="mystore" data-amount="99.99"
+                data-product="Premium Course" data-description="Access to all premium content"></div>
+        </div>
+    </div>
+
+    <!-- Example 2: Custom Configuration -->
+    <div class="example-section">
+        <h2>⚙️ Example 2: Custom Configuration</h2>
+        <p>For more control, you can programmatically create and customize the widget.</p>
+
+        <div class="code-block">
+            &lt;div id="custom-payment-widget"&gt;&lt;/div&gt;
+
+            &lt;script src="https://your-domain.com/merchant-widget.js"&gt;&lt;/script&gt;
+            &lt;script&gt;
+            // Custom widget with your branding
+            const customWidget = new NoNamePaymentWidget({
+            merchantUsername: 'mystore',
+            defaultAmount: '149.99',
+            productName: 'E-commerce Store Purchase',
+            productDescription: 'Premium product with crypto payments',
+
+            // Custom styling to match your brand
+            theme: {
+            primaryColor: '#6B46C1', // Purple to match your brand
+            successColor: '#10B981', // Custom success color
+            backgroundColor: '#FFFFFF',
+            borderRadius: '12px', // More rounded corners
+            fontFamily: 'Inter, sans-serif' // Your custom font
+            },
+
+            // Add more supported tokens
+            supportedTokens: [
+            {
+            symbol: 'USDC',
+            name: 'USD Coin',
+            logo: 'https://your-domain.com/tokens/usdc.png',
+            chainId: 1328,
+            tokenAddress: '0x0000000000000000000000000000000000000000'
+            },
+            {
+            symbol: 'USDT',
+            name: 'Tether USD',
+            logo: 'https://your-domain.com/tokens/usdt.png',
+            chainId: 1328,
+            tokenAddress: '0x0000000000000000000000000000000000000001'
+            }
+            ]
+            });
+
+            // Render the widget in your container
+            customWidget.renderIn('custom-payment-widget');
+
+            // Listen for payment events
+            document.addEventListener('noname-payment-success', (event) => {
+            console.log('🎉 Payment successful!', event.detail);
+
+            // Your custom success handling
+            alert('Payment received! Order confirmed.');
+
+            // Redirect to success page
+            window.location.href = '/payment-success';
+
+            // Update your database
+            // sendPaymentNotificationToServer(event.detail);
+            });
+            &lt;/script&gt;
+        </div>
+
+        <div class="demo-container">
+            <p><strong>🎯 Live Demo:</strong> Custom styled widget:</p>
+            <div id="custom-payment-widget"></div>
+        </div>
+    </div>
+
+    <!-- Example 3: E-commerce Integration -->
+    <div class="example-section">
+        <h2>🛒 Example 3: E-commerce Store Integration</h2>
+        <p>Perfect for online stores - dynamically update amounts and products.</p>
+
+        <div class="code-block">
+            &lt;!-- Product display --&gt;
+            &lt;div class="product-card"&gt;
+            &lt;h3&gt;Nike Air Max 270&lt;/h3&gt;
+            &lt;p&gt;Price: $&lt;span id="product-price"&gt;150.00&lt;/span&gt;&lt;/p&gt;
+
+            &lt;!-- Quantity selector --&gt;
+            &lt;label&gt;Quantity:
+            &lt;select id="quantity-selector"&gt;
+            &lt;option value="1"&gt;1&lt;/option&gt;
+            &lt;option value="2"&gt;2&lt;/option&gt;
+            &lt;option value="3"&gt;3&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;/label&gt;
+
+            &lt;!-- Payment widget container --&gt;
+            &lt;div id="product-payment-widget"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;script src="https://your-domain.com/merchant-widget.js"&gt;&lt;/script&gt;
+            &lt;script&gt;
+            const basePrice = 150.00;
+
+            // Create widget for product
+            const productWidget = new NoNamePaymentWidget({
+            merchantUsername: 'sneaker-store',
+            defaultAmount: basePrice.toString(),
+            productName: 'Nike Air Max 270',
+            productDescription: 'Premium athletic footwear'
+            });
+
+            productWidget.renderIn('product-payment-widget');
+
+            // Update price when quantity changes
+            document.getElementById('quantity-selector').addEventListener('change', (e) => {
+            const quantity = parseInt(e.target.value);
+            const totalPrice = (basePrice * quantity).toFixed(2);
+
+            // Update display
+            document.getElementById('product-price').textContent = totalPrice;
+
+            // Update widget amount
+            const amountInput = document.querySelector('.noname-amount-input');
+            if (amountInput) {
+            amountInput.value = totalPrice;
+            }
+            });
+
+            // Handle successful payment
+            document.addEventListener('noname-payment-success', (event) => {
+            const { stealthData, token, amount } = event.detail;
+
+            // Send order to your backend
+            fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            product: 'Nike Air Max 270',
+            quantity: document.getElementById('quantity-selector').value,
+            amount: amount,
+            currency: token.symbol,
+            paymentAddress: stealthData.address,
+            customerWallet: 'pending' // Customer's wallet will be detected from blockchain
+            })
+            }).then(response => {
+            if (response.ok) {
+            window.location.href = '/order-confirmation';
+            }
+            });
+            });
+            &lt;/script&gt;
+        </div>
+
+        <div class="demo-container">
+            <p><strong>🎯 Live Demo:</strong> E-commerce integration:</p>
+            <div style="border: 1px solid #ddd; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                <h3>Nike Air Max 270</h3>
+                <p>Price: $<span id="product-price">150.00</span></p>
+                <label>Quantity:
+                    <select id="quantity-selector">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </label>
+            </div>
+            <div id="product-payment-widget"></div>
+        </div>
+    </div>
+
+    <!-- Example 4: Subscription Service -->
+    <div class="example-section">
+        <h2>🔄 Example 4: Subscription Service Integration</h2>
+        <p>For SaaS and subscription services with different pricing tiers.</p>
+
+        <div class="code-block">
+            &lt;div class="pricing-plans"&gt;
+            &lt;div class="plan" data-plan="basic"&gt;
+            &lt;h3&gt;Basic Plan&lt;/h3&gt;
+            &lt;p&gt;$29/month&lt;/p&gt;
+            &lt;button class="select-plan" data-amount="29" data-plan="basic"&gt;Select Basic&lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class="plan" data-plan="pro"&gt;
+            &lt;h3&gt;Pro Plan&lt;/h3&gt;
+            &lt;p&gt;$79/month&lt;/p&gt;
+            &lt;button class="select-plan" data-amount="79" data-plan="pro"&gt;Select Pro&lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;div class="plan" data-plan="enterprise"&gt;
+            &lt;h3&gt;Enterprise Plan&lt;/h3&gt;
+            &lt;p&gt;$199/month&lt;/p&gt;
+            &lt;button class="select-plan" data-amount="199" data-plan="enterprise"&gt;Select Enterprise&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div id="subscription-payment" style="display: none;"&gt;&lt;/div&gt;
+
+            &lt;script src="https://your-domain.com/merchant-widget.js"&gt;&lt;/script&gt;
+            &lt;script&gt;
+            let subscriptionWidget = null;
+
+            // Handle plan selection
+            document.querySelectorAll('.select-plan').forEach(button => {
+            button.addEventListener('click', (e) => {
+            const amount = e.target.dataset.amount;
+            const plan = e.target.dataset.plan;
+
+            // Create/update widget for selected plan
+            if (subscriptionWidget) {
+            // Update existing widget
+            const amountInput = document.querySelector('.noname-amount-input');
+            if (amountInput) amountInput.value = amount;
+
+            const productName = document.querySelector('.noname-widget-header p');
+            if (productName) productName.textContent = `${plan.charAt(0).toUpperCase() + plan.slice(1)} Plan
+            Subscription`;
+            } else {
+            // Create new widget
+            subscriptionWidget = new NoNamePaymentWidget({
+            merchantUsername: 'saas-platform',
+            defaultAmount: amount,
+            productName: `${plan.charAt(0).toUpperCase() + plan.slice(1)} Plan Subscription`,
+            productDescription: `Monthly subscription to ${plan} plan`
+            });
+
+            subscriptionWidget.renderIn('subscription-payment');
+            }
+
+            // Show payment widget
+            document.getElementById('subscription-payment').style.display = 'block';
+
+            // Scroll to payment
+            document.getElementById('subscription-payment').scrollIntoView({
+            behavior: 'smooth'
+            });
+            });
+            });
+
+            // Handle subscription payment success
+            document.addEventListener('noname-payment-success', (event) => {
+            const { amount } = event.detail;
+
+            // Activate subscription in your system
+            fetch('/api/subscriptions/activate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            plan: determinePlanFromAmount(amount),
+            paymentProof: event.detail
+            })
+            }).then(response => {
+            if (response.ok) {
+            alert('🎉 Subscription activated! Welcome aboard!');
+            window.location.href = '/dashboard';
+            }
+            });
+            });
+
+            function determinePlanFromAmount(amount) {
+            if (amount == 29) return 'basic';
+            if (amount == 79) return 'pro';
+            if (amount == 199) return 'enterprise';
+            return 'basic';
+            }
+            &lt;/script&gt;
+        </div>
+    </div>
+
+    <!-- Configuration Guide -->
+    <div class="example-section">
+        <h2>🔧 Configuration Options</h2>
+
+        <div class="code-block">
+            const widget = new NoNamePaymentWidget({
+            // REQUIRED: Your merchant username from registration
+            merchantUsername: 'your-username',
+
+            // API Configuration
+            apiBaseUrl: 'https://stealth-lemon.vercel.app', // Production API
+
+            // Payment Details
+            defaultAmount: '50.00',
+            defaultCurrency: 'USDC',
+            productName: 'Your Product Name',
+            productDescription: 'Product description',
+
+            // Supported Tokens (customize as needed)
+            supportedTokens: [
+            {
+            symbol: 'USDC',
+            name: 'USD Coin',
+            logo: 'https://your-domain.com/usdc-logo.png',
+            chainId: 1328, // Sei Testnet
+            tokenAddress: '0x0000000000000000000000000000000000000000'
+            }
+            // Add more tokens...
+            ],
+
+            // Theme Customization
+            theme: {
+            primaryColor: '#2775CA', // Main brand color
+            successColor: '#26A54B', // Success state color
+            errorColor: '#E53E3E', // Error state color
+            backgroundColor: '#FFFFFF', // Widget background
+            textColor: '#1A202C', // Text color
+            borderRadius: '8px', // Corner radius
+            fontFamily: 'system-ui, -apple-system, sans-serif'
+            }
+            });
+        </div>
+    </div>
+
+    <!-- Integration Steps -->
+    <div class="example-section">
+        <h2>🛠️ Quick Start Integration Steps</h2>
+
+        <div class="warning">
+            <strong>⚠️ Before you start:</strong> Make sure you've registered as a merchant and have your username
+            ready.
+        </div>
+
+        <ol>
+            <li><strong>Download the widget:</strong> Save <code>merchant-widget.js</code> to your website</li>
+            <li><strong>Include the script:</strong> Add the script tag to your HTML</li>
+            <li><strong>Add payment container:</strong> Create a div where you want the widget</li>
+            <li><strong>Configure your username:</strong> Replace <code>YOUR_MERCHANT_USERNAME</code> with your actual
+                username</li>
+            <li><strong>Customize styling:</strong> Update colors, amounts, and product names</li>
+            <li><strong>Handle events:</strong> Listen for <code>noname-payment-success</code> events</li>
+            <li><strong>Test payments:</strong> Use testnet tokens to verify everything works</li>
+            <li><strong>Go live:</strong> Start accepting real crypto payments!</li>
+        </ol>
+    </div>
+
+    <!-- Event Handling -->
+    <div class="example-section">
+        <h2>📡 Event Handling</h2>
+        <p>Listen for payment events to integrate with your backend systems:</p>
+
+        <div class="code-block">
+            // Listen for successful payments
+            document.addEventListener('noname-payment-success', (event) => {
+            const paymentData = event.detail;
+
+            console.log('Payment received:', {
+            amount: paymentData.amount,
+            token: paymentData.token.symbol,
+            stealthAddress: paymentData.stealthData.address,
+            safeAddress: paymentData.stealthData.safeAddress.address,
+            chainId: paymentData.stealthData.chainId,
+            chainName: paymentData.stealthData.chainName
+            });
+
+            // Example integrations:
+
+            // 1. Update your database
+            fetch('/api/payments/confirm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(paymentData)
+            });
+
+            // 2. Send confirmation email
+            sendOrderConfirmation(paymentData);
+
+            // 3. Update UI
+            showSuccessMessage('Payment received! Order confirmed.');
+
+            // 4. Redirect to success page
+            setTimeout(() => {
+            window.location.href = '/payment-success';
+            }, 2000);
+
+            // 5. Google Analytics tracking
+            if (typeof gtag !== 'undefined') {
+            gtag('event', 'purchase', {
+            transaction_id: paymentData.stealthData.address,
+            value: paymentData.amount,
+            currency: paymentData.token.symbol
+            });
+            }
+            });
+
+            // Example backend confirmation function
+            async function sendOrderConfirmation(paymentData) {
+            try {
+            await fetch('/api/orders/confirm', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + yourAuthToken
+            },
+            body: JSON.stringify({
+            orderId: generateOrderId(),
+            customerEmail: getCustomerEmail(),
+            amount: paymentData.amount,
+            currency: paymentData.token.symbol,
+            paymentAddress: paymentData.stealthData.address,
+            paymentProof: paymentData
+            })
+            });
+            } catch (error) {
+            console.error('Failed to confirm order:', error);
+            }
+            }
+        </div>
+    </div>
+
+    <!-- Load the actual widget script for demos -->
+    <script src="merchant-widget.js"></script>
+
+    <!-- Initialize demos -->
+    <script>
+        // Custom widget demo
+        const customWidget = new NoNamePaymentWidget({
+            merchantUsername: 'demo-store',
+            defaultAmount: '149.99',
+            productName: 'Custom Styled Widget',
+            theme: {
+                primaryColor: '#6B46C1',
+                borderRadius: '12px'
+            }
+        });
+        customWidget.renderIn('custom-payment-widget');
+
+        // E-commerce demo
+        const basePrice = 150.00;
+        const productWidget = new NoNamePaymentWidget({
+            merchantUsername: 'sneaker-store',
+            defaultAmount: basePrice.toString(),
+            productName: 'Nike Air Max 270'
+        });
+        productWidget.renderIn('product-payment-widget');
+
+        // Quantity selector functionality
+        document.getElementById('quantity-selector').addEventListener('change', (e) => {
+            const quantity = parseInt(e.target.value);
+            const totalPrice = (basePrice * quantity).toFixed(2);
+            document.getElementById('product-price').textContent = totalPrice;
+
+            const amountInput = document.querySelector('#product-payment-widget .noname-amount-input');
+            if (amountInput) {
+                amountInput.value = totalPrice;
+            }
+        });
+
+        // Demo event listeners
+        document.addEventListener('noname-payment-success', (event) => {
+            alert('🎉 Demo payment successful! In production, this would process your order.');
+            console.log('Demo payment data:', event.detail);
+        });
+    </script>
+</body>
+
+</html>

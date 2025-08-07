@@ -1,0 +1,46 @@
+{
+  "name": "unwallet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fluidkey/stealth-account-kit": "^1.1.0",
+    "@privy-io/react-auth": "^2.17.3",
+    "@privy-io/wagmi": "0.2.12",
+    "@radix-ui/react-alert-dialog": "^1.1.14",
+    "@radix-ui/react-popover": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@safe-global/protocol-kit": "6.0.5",
+    "@tanstack/react-query": "^5",
+    "@wagmi/chains": "^1.8.0",
+    "axios": "^1.10.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "ethereum-cryptography": "^3.2.0",
+    "lucide-react": "^0.525.0",
+    "next": "15.3.5",
+    "next-themes": "^0.4.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.3.1",
+    "viem": "^2.16.0",
+    "wagmi": "^2.10.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.5",
+    "tailwindcss": "^4",
+    "tw-animate-css": "^1.3.5",
+    "typescript": "^5"
+  }
+}
